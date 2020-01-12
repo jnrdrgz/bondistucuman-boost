@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -19,10 +20,14 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private DrawerBuilder drawerBuilder;
+    private ArrayList<Marker> markers = new ArrayList<>();
+    private BondiPorLinea bondiPorLinea = new BondiPorLinea();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +55,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 Log.i("DRAWER CLICK", Integer.toString(position));
                 switch (position){
-                    case 1:
-                        //porLinea();
+                    case 0:
+                        bondiPorLinea.init(mMap,markers);
+                        Log.i("ISADDING", Integer.toString(markers.size()));
                         break;
-                    case 2:
+                    case 1:
                         //personalizado();
                         break;
-                    case 3:
+                    case 2:
                         //puntoPunto();
                         break;
                 }
