@@ -26,11 +26,11 @@ public class BondiPorLinea extends MapaBondis{
     private String URL = "http://158.69.206.233:84/bondis/p/";
     private int[] colors = { Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.MAGENTA, Color.CYAN};
 
-    public void init(GoogleMap map, ArrayList<Marker> markers){
-        requestPosition(map, markers,4);
+    public void init(GoogleMap map){
+        requestPosition(map,4);
     }
 
-    private void requestPosition(final GoogleMap map, final ArrayList<Marker> markers, final int l){
+    private void requestPosition(final GoogleMap map, final int l){
         AsyncHttpClient client = new AsyncHttpClient();
 
         String url = URL + l;
@@ -47,7 +47,7 @@ public class BondiPorLinea extends MapaBondis{
                         for(int i = 0; i<posiciones.length(); i++) {
                             Double lat = posiciones.getJSONObject(i).getDouble("latitud");
                             Double lng = posiciones.getJSONObject(i).getDouble("longitud");
-                            add_marker(map, markers, l, r, new LatLng(lat,lng));
+                            add_marker(map, l, r, new LatLng(lat,lng));
                         }
                     }
 
@@ -58,7 +58,7 @@ public class BondiPorLinea extends MapaBondis{
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response){
-                //build_failure_message("RequestPos", statusCode, response, e.toString());
+                FailureMessageBuilder.build("RequestPos", statusCode, response, e.toString());
             }
         });
     }

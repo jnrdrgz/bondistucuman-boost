@@ -13,7 +13,10 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 public abstract class MapaBondis {
-    protected void add_marker(GoogleMap map, ArrayList<Marker> markers, int linea, String ramal, LatLng coord){
+    public ArrayList<Marker> markers = new ArrayList<>();
+    public ArrayList<Polyline> lines = new ArrayList<>();
+
+    protected void add_marker(GoogleMap map, int linea, String ramal, LatLng coord){
         Marker marker;
 
         marker = map.addMarker(new MarkerOptions()
@@ -27,7 +30,7 @@ public abstract class MapaBondis {
         }
     }
 
-    protected void draw_recorrido(GoogleMap map, ArrayList<Polyline> lines, JSONArray points, int color){
+    protected void draw_recorrido(GoogleMap map, JSONArray points, int color){
         ArrayList<LatLng> points_l = new ArrayList<>();
         for(int i = 0; i<points.length();i++) {
             try {
@@ -43,5 +46,17 @@ public abstract class MapaBondis {
                 .color(color));
 
         lines.add(line);
+    }
+
+    private void delete_markers(ArrayList<Marker> markers){
+        for(Marker m : markers){
+            m.remove();
+        }
+    }
+
+    private void delete_lines(ArrayList<Polyline> lines){
+        for(Polyline l : lines){
+            l.remove();
+        }
     }
 }
