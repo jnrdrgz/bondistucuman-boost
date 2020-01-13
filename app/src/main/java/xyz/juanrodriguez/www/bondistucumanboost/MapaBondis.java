@@ -18,6 +18,7 @@ public abstract class MapaBondis {
     public ArrayList<Marker> markers = new ArrayList<>();
     public ArrayList<Polyline> lines = new ArrayList<>();
     public int[] colors = { Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.MAGENTA, Color.CYAN};
+    public boolean current = false;
 
 
     protected void add_marker(GoogleMap map, int linea, String ramal, LatLng coord){
@@ -52,15 +53,24 @@ public abstract class MapaBondis {
         lines.add(line);
     }
 
-    private void delete_markers(ArrayList<Marker> markers){
+    protected void delete_markers(){
         for(Marker m : markers){
             m.remove();
         }
     }
 
-    private void delete_lines(ArrayList<Polyline> lines){
+    protected void delete_lines(){
         for(Polyline l : lines){
             l.remove();
         }
     }
+
+    //todo: make it abstract along with init.
+    protected void destroy(){
+        delete_lines();
+        delete_markers();
+        current = false;
+    }
+
+
 }

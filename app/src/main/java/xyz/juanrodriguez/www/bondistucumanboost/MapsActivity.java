@@ -63,9 +63,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                         break;
                     case 1:
+                        if(bondiPorLinea.current) {
+                            bondiPorLinea.destroy();
+                        }
                         //personalizado();
                         break;
                     case 2:
+                        if(bondiPorLinea.current) {
+                            bondiPorLinea.destroy();
+                        }
                         //puntoPunto();
                         break;
                 }
