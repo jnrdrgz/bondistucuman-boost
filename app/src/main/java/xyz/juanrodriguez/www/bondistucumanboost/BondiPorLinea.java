@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class BondiPorLinea extends MapaBondis{
-    private String URL = "http://158.69.206.233:84/bondis/p/";
-    private int[] colors = { Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.MAGENTA, Color.CYAN};
+    private String URL = "http://158.69.206.233:84/bondis/";
 
     public void init(GoogleMap map){
         requestPosition(map,4);
@@ -33,7 +32,7 @@ public class BondiPorLinea extends MapaBondis{
     private void requestPosition(final GoogleMap map, final int l){
         AsyncHttpClient client = new AsyncHttpClient();
 
-        String url = URL + l;
+        String url = URL + "p/" + l;
 
         client.get(url, new JsonHttpResponseHandler(){
             @Override
@@ -61,9 +60,36 @@ public class BondiPorLinea extends MapaBondis{
                 FailureMessageBuilder.build("RequestPos", statusCode, response, e.toString());
             }
         });
+
+
     }
 
+    private void requestRecorrido(final GoogleMap map, int l){
+        AsyncHttpClient client = new AsyncHttpClient();
 
+        String url = URL + "r/" + l;
 
+        client.get(url, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, final JSONObject response){
+                int current_color = 0;
+                try{
+                    for ( Iterator<String> it = response.keys();  it.hasNext();){
+                        String r = it.next();
+                        JSONArray pts = response.getJSONObject(r).getJSONArray("puntos");
+                        draw_recorrido(map, pts, colors[current_color]);
+                        current_color++;
+                    }
 
+                } catch (Exception e){
+                    Log.e("REQUESTPOS", e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response){
+                FailureMessageBuilder.build("RequestRec", statusCode, response, e.toString());
+            }
+        });
+    }
 }

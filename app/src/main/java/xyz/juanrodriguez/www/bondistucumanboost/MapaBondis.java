@@ -1,5 +1,7 @@
 package xyz.juanrodriguez.www.bondistucumanboost;
 
+import android.graphics.Color;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 public abstract class MapaBondis {
     public ArrayList<Marker> markers = new ArrayList<>();
     public ArrayList<Polyline> lines = new ArrayList<>();
+    public int[] colors = { Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.MAGENTA, Color.CYAN};
+
 
     protected void add_marker(GoogleMap map, int linea, String ramal, LatLng coord){
         Marker marker;
