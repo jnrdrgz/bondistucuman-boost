@@ -57,8 +57,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.i("DRAWER CLICK", Integer.toString(position));
                 switch (position){
                     case 0:
-                        bondiPorLinea.init(mMap);
-                        Log.i("ISADDING", Integer.toString(bondiPorLinea.markers.size()));
+                        if(!bondiPorLinea.current) {
+                            bondiPorLinea.init(mMap);
+                            Log.i("ISADDING", Integer.toString(bondiPorLinea.markers.size()));
+                        }
                         break;
                     case 1:
                         //personalizado();
