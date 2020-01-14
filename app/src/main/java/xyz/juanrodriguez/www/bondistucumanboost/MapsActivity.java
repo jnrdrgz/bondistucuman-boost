@@ -47,9 +47,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-
-
         PrimaryDrawerItem b1 = new PrimaryDrawerItem().withIdentifier(1).withName("Por Linea");
         PrimaryDrawerItem b2 = new PrimaryDrawerItem().withIdentifier(2).withName("Personalizado");
         PrimaryDrawerItem b3 = new PrimaryDrawerItem().withIdentifier(3).withName("Punto a Punto");
@@ -68,6 +65,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.i("DRAWER CLICK", Integer.toString(position));
                 switch (position){
                     case 0:
+                        if(bondiPuntoPunto.current) {
+                            ViewGroup main = findViewById(R.id.insert_point);
+                            bondiPuntoPunto.destroy(main);
+                        }
+
                         if(!bondiPorLinea.current) {
                             bondiPorLinea.init(mMap);
                             Log.i("ISADDING", Integer.toString(bondiPorLinea.markers.size()));
@@ -85,6 +87,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             ViewGroup main = findViewById(R.id.insert_point);
                             bondiPorLinea.destroy(main);
                         }
+                        if(bondiPuntoPunto.current) {
+                            ViewGroup main = findViewById(R.id.insert_point);
+                            bondiPuntoPunto.destroy(main);
+                        }
                         //personalizado();
                         break;
                     case 2:
@@ -92,7 +98,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             ViewGroup main = findViewById(R.id.insert_point);
                             bondiPorLinea.destroy(main);
                         }
-                        //puntoPunto();
+                        if(bondiPuntoPunto.current) {
+                            ViewGroup main = findViewById(R.id.insert_point);
+                            bondiPuntoPunto.destroy(main);
+                        }
+
+                        if(!bondiPuntoPunto.current)
+                            bondiPuntoPunto.init(mMap);
                         break;
                 }
                 return false;
@@ -127,16 +139,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng smlatlng = new LatLng(san_miguel_lat, san_miguel_lng);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(smlatlng));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(smlatlng, 12.0f));
-
-        //testing click map
-        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng point) {
-                Log.d("DEBUG","Map clicked [" + point.latitude + " / " + point.longitude + "]");
-                //Do your stuff with LatLng here
-                //Then pass LatLng to other activity
-            }
-        });
     }
 
 }

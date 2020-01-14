@@ -30,13 +30,12 @@ import java.util.Iterator;
 
 public class BondiPorLinea extends MapaBondis{
     private String URL = "http://158.69.206.233:84/bondis/";
+    //todo: make map a var inside the method
 
     public void init(GoogleMap map){
         requestPosition(map,4);
         requestRecorrido(map, 4);
         current = true;
-
-
     }
 
     private void requestPosition(final GoogleMap map, final int l){
