@@ -46,19 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.spinnerlineas, null);
-        ViewGroup main = findViewById(R.id.insert_point);
-        main.addView(view, 0);
 
-        dropdown = findViewById(R.id.spinner_lineas);
-        ArrayList<String> ls_ad = new ArrayList<>();
-        ls_ad.add("1");
-        ls_ad.add("2");
-        ls_ad.add("3");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(MapsActivity.this, android.R.layout.simple_spinner_dropdown_item, ls_ad);
-        dropdown.setAdapter(adapter);
 
 
         PrimaryDrawerItem b1 = new PrimaryDrawerItem().withIdentifier(1).withName("Por Linea");
@@ -82,6 +70,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if(!bondiPorLinea.current) {
                             bondiPorLinea.init(mMap);
                             Log.i("ISADDING", Integer.toString(bondiPorLinea.markers.size()));
+
+                            LayoutInflater inflater = getLayoutInflater();
+                            ViewGroup main = findViewById(R.id.insert_point);
+                            dropdown = findViewById(R.id.spinner_lineas);
+
+                            bondiPorLinea.addSpinner(inflater,main);
+
+                            bondiPorLinea.fillSpinner(MapsActivity.this,inflater,main,dropdown);
                         }
                         break;
                     case 1:
@@ -101,6 +97,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         drawerBuilder.withActivity(this).build();
+
+    }
+
+    public void addSpinner(){
+
 
     }
 

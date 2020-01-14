@@ -3,6 +3,9 @@ package xyz.juanrodriguez.www.bondistucumanboost;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -32,6 +35,8 @@ public class BondiPorLinea extends MapaBondis{
         requestPosition(map,4);
         requestRecorrido(map, 4);
         current = true;
+
+
     }
 
     private void requestPosition(final GoogleMap map, final int l){
@@ -98,7 +103,7 @@ public class BondiPorLinea extends MapaBondis{
         });
     }
 
-    public void fillSpinner(final Context context, final Spinner dropdown){
+    public void fillSpinner(final Context context, final LayoutInflater inflater, final ViewGroup main, final Spinner dropdown){
         AsyncHttpClient client = new AsyncHttpClient();
 
         String url = URL + "lineas";
@@ -113,8 +118,8 @@ public class BondiPorLinea extends MapaBondis{
                     for(int i = 0; i<ls.length(); i++){
                         ls_ad.add(ls.getString(i));
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, ls_ad);
-                    dropdown.setAdapter(adapter);
+
+                    fillSpinner(context, dropdown, ls_ad);
 
                 } catch (Exception e){
                     Log.e("FILLSPIN", e.toString());
@@ -126,5 +131,19 @@ public class BondiPorLinea extends MapaBondis{
                 FailureMessageBuilder.build("FillSpinner", statusCode, response, e.toString());
             }
         });
+    }
+
+    public void addSpinner( LayoutInflater inflater,  ViewGroup main){
+        View view_ = inflater.inflate(R.layout.spinnerlineas, null);
+        main.addView(view_, 0);
+    }
+    private void fillSpinner(Context context, Spinner dropdown, ArrayList<String> data){
+        if(dropdown == null){
+            Log.d("DROPDOWNNULL", "dropdown is null");
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, data);
+
+        dropdown.setAdapter(adapter);
     }
 }
