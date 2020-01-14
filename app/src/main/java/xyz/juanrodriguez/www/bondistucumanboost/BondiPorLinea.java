@@ -103,7 +103,7 @@ public class BondiPorLinea extends MapaBondis{
         });
     }
 
-    public void fillSpinner(final Context context, final LayoutInflater inflater, final ViewGroup main, final Spinner dropdown){
+    public void fillSpinner(final Context context, final Spinner dropdown){
         AsyncHttpClient client = new AsyncHttpClient();
 
         String url = URL + "lineas";
@@ -137,6 +137,7 @@ public class BondiPorLinea extends MapaBondis{
         View view_ = inflater.inflate(R.layout.spinnerlineas, null);
         main.addView(view_, 0);
     }
+
     private void fillSpinner(Context context, Spinner dropdown, ArrayList<String> data){
         if(dropdown == null){
             Log.d("DROPDOWNNULL", "dropdown is null");
@@ -145,5 +146,14 @@ public class BondiPorLinea extends MapaBondis{
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, data);
 
         dropdown.setAdapter(adapter);
+    }
+
+    @Override
+    protected void destroy(ViewGroup main) {
+        delete_lines();
+        delete_markers();
+        current = false;
+
+        main.removeAllViews();
     }
 }

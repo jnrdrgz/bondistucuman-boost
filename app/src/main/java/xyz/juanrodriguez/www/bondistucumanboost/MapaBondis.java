@@ -1,6 +1,7 @@
 package xyz.juanrodriguez.www.bondistucumanboost;
 
 import android.graphics.Color;
+import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -66,11 +67,7 @@ public abstract class MapaBondis {
     }
 
     //todo: make it abstract along with init.
-    protected void destroy(){
-        delete_lines();
-        delete_markers();
-        current = false;
-    }
+    protected abstract void destroy(ViewGroup main);
 
 
 }

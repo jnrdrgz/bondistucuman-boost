@@ -34,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Spinner dropdown;
     private BondiPorLinea bondiPorLinea = new BondiPorLinea();
+    private BondiPuntoPunto bondiPuntoPunto = new BondiPuntoPunto();
 
 
 
@@ -73,22 +74,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             LayoutInflater inflater = getLayoutInflater();
                             ViewGroup main = findViewById(R.id.insert_point);
-                            dropdown = findViewById(R.id.spinner_lineas);
-
                             bondiPorLinea.addSpinner(inflater,main);
 
-                            bondiPorLinea.fillSpinner(MapsActivity.this,inflater,main,dropdown);
+                            dropdown = findViewById(R.id.spinner_lineas);
+                            bondiPorLinea.fillSpinner(MapsActivity.this,dropdown);
                         }
                         break;
                     case 1:
                         if(bondiPorLinea.current) {
-                            bondiPorLinea.destroy();
+                            ViewGroup main = findViewById(R.id.insert_point);
+                            bondiPorLinea.destroy(main);
                         }
                         //personalizado();
                         break;
                     case 2:
                         if(bondiPorLinea.current) {
-                            bondiPorLinea.destroy();
+                            ViewGroup main = findViewById(R.id.insert_point);
+                            bondiPorLinea.destroy(main);
                         }
                         //puntoPunto();
                         break;
