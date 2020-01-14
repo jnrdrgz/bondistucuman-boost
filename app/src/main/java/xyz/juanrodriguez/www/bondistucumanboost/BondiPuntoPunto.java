@@ -11,13 +11,11 @@ public class BondiPuntoPunto extends MapaBondis {
     public void init(GoogleMap map){
         this.map = map;
         current = true;
-        //testing click map
+
         map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng point) {
                 Log.d("DEBUG","Map clicked [" + point.latitude + " / " + point.longitude + "]");
-                //Do your stuff with LatLng here
-                //Then pass LatLng to other activity
             }
         });
     }
