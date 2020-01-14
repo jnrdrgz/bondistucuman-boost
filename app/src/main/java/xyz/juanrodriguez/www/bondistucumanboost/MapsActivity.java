@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -35,8 +36,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Spinner dropdown;
     private BondiPorLinea bondiPorLinea = new BondiPorLinea();
     private BondiPuntoPunto bondiPuntoPunto = new BondiPuntoPunto();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
 
                         if(!bondiPorLinea.current) {
-                            bondiPorLinea.init(mMap);
+                            bondiPorLinea.init(mMap,4);
                             Log.i("ISADDING", Integer.toString(bondiPorLinea.markers.size()));
 
                             LayoutInflater inflater = getLayoutInflater();
@@ -80,6 +79,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             dropdown = findViewById(R.id.spinner_lineas);
                             bondiPorLinea.fillSpinner(MapsActivity.this,dropdown);
+
+
                         }
                         break;
                     case 1:
@@ -114,11 +115,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void addSpinner(){
-
-
-    }
-
 
     /**
      * Manipulates the map once available.
@@ -140,5 +136,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(smlatlng));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(smlatlng, 12.0f));
     }
-
 }

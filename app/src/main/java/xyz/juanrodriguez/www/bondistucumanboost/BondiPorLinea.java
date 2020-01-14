@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -31,11 +32,17 @@ import java.util.Iterator;
 public class BondiPorLinea extends MapaBondis{
     private String URL = "http://158.69.206.233:84/bondis/";
     //todo: make map a var inside the method
+    private GoogleMap map;
 
-    public void init(GoogleMap map){
-        requestPosition(map,4);
-        requestRecorrido(map, 4);
+    public void init(GoogleMap map, int l){
+        this.map = map;
+
+        requestPosition(map,l);
+        requestRecorrido(map, l);
+
         current = true;
+
+
     }
 
     private void requestPosition(final GoogleMap map, final int l){
@@ -145,6 +152,22 @@ public class BondiPorLinea extends MapaBondis{
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, data);
 
         dropdown.setAdapter(adapter);
+
+        dropdown.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                        delete_lines();
+                        delete_markers();
+
+                        Object item = parent.getItemAtPosition(pos);
+                        int sel = Integer.parseInt(item.toString());
+
+                        requestPosition(map, sel);
+                        requestRecorrido(map, sel);
+                    }
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
     }
 
     @Override
