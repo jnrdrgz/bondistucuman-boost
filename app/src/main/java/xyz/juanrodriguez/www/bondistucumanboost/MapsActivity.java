@@ -4,7 +4,11 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,7 +32,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private DrawerBuilder drawerBuilder;
 
+    private Spinner dropdown;
     private BondiPorLinea bondiPorLinea = new BondiPorLinea();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.spinnerlineas, null);
+        ViewGroup main = findViewById(R.id.insert_point);
+        main.addView(view, 0);
+
+        dropdown = findViewById(R.id.spinner_lineas);
+        ArrayList<String> ls_ad = new ArrayList<>();
+        ls_ad.add("1");
+        ls_ad.add("2");
+        ls_ad.add("3");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MapsActivity.this, android.R.layout.simple_spinner_dropdown_item, ls_ad);
+        dropdown.setAdapter(adapter);
+
 
         PrimaryDrawerItem b1 = new PrimaryDrawerItem().withIdentifier(1).withName("Por Linea");
         PrimaryDrawerItem b2 = new PrimaryDrawerItem().withIdentifier(2).withName("Personalizado");

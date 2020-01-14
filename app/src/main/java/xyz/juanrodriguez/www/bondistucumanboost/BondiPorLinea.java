@@ -1,7 +1,10 @@
 package xyz.juanrodriguez.www.bondistucumanboost;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -91,6 +94,36 @@ public class BondiPorLinea extends MapaBondis{
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response){
                 FailureMessageBuilder.build("RequestRec", statusCode, response, e.toString());
+            }
+        });
+    }
+
+    public void fillSpinner(final Context context, final Spinner dropdown){
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        String url = URL + "lineas";
+
+        client.get(url, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, final JSONObject response){
+                try{
+                    JSONArray ls = response.getJSONArray("numeros");
+
+                    ArrayList<String> ls_ad = new ArrayList<>();
+                    for(int i = 0; i<ls.length(); i++){
+                        ls_ad.add(ls.getString(i));
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, ls_ad);
+                    dropdown.setAdapter(adapter);
+
+                } catch (Exception e){
+                    Log.e("FILLSPIN", e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response){
+                FailureMessageBuilder.build("FillSpinner", statusCode, response, e.toString());
             }
         });
     }
