@@ -35,8 +35,6 @@ public class BondiPorLinea extends MapaBondis{
         requestRecorrido(map, l);
 
         current = true;
-
-
     }
 
     private void requestPosition(final GoogleMap map, final int l){
