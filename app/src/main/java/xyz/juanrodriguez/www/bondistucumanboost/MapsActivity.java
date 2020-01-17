@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,6 +27,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DrawerBuilder drawerBuilder;
 
     private Spinner dropdown;
+    private EditText et_partida, et_destino;
+    private Button button_search;
     private BondiPorLinea bondiPorLinea = new BondiPorLinea();
     private BondiPuntoPunto bondiPuntoPunto = new BondiPuntoPunto();
 
@@ -93,8 +97,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             bondiPuntoPunto.destroy(main);
                         }
 
-                        if(!bondiPuntoPunto.current)
+                        if(!bondiPuntoPunto.current) {
                             bondiPuntoPunto.init(mMap);
+                            LayoutInflater inflater = getLayoutInflater();
+                            ViewGroup main = findViewById(R.id.insert_point);
+                            bondiPuntoPunto.addView(inflater,main);
+
+                            et_partida = findViewById(R.id.partida_tv);
+                            et_destino = findViewById(R.id.destino_tv);
+                            button_search = findViewById(R.id.button_punto_punto);
+
+                            bondiPuntoPunto.set_click_listeners(et_partida, et_destino, button_search);
+
+                        }
                         break;
                 }
                 return false;
