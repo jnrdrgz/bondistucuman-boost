@@ -100,10 +100,34 @@ public class BondiPuntoPunto extends MapaBondis {
                 client.get(url, new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, final JSONObject response){
+                        int current_color = 0;
                         try{
-                            Log.d("fghj", url);
+                            Log.d("URL:", url);
+                            try {
+                                JSONArray posibles = response.getJSONArray("posibles");
+
+                                for (int i = 0; i < posibles.length(); i++) {
+                                    JSONObject p = posibles.getJSONObject(i);
+                                    JSONArray recorrido_ptos = p.getJSONObject("recorrido").getJSONArray("puntos");
+
+                                    draw_recorrido(map, recorrido_ptos, colors[current_color]);
+                                    current_color++;
+
+                                    String nombre = p.getString("nombres");
+                                    JSONArray posiciones = p.getJSONObject("ubicaciones").getJSONArray("posiciones");
+                                    for(int j = 0; j<posiciones.length(); j++) {
+                                        Double lat = posiciones.getJSONObject(j).getDouble("latitud");
+                                        Double lng = posiciones.getJSONObject(j).getDouble("longitud");
+                                        add_marker(map, nombre, nombre, new LatLng(lat,lng));
+                                    }
+                                }
+
+                            } catch (Exception e){
+                                Log.e("PARSINGJSON", e.toString());
+                            }
+
                         } catch (Exception e){
-                            Log.e("REQUESTALL", e.toString());
+                            Log.e("POSREQ", e.toString());
                         }
                     }
 

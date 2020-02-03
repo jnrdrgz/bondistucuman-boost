@@ -36,6 +36,20 @@ public abstract class MapaBondis {
         }
     }
 
+    protected void add_marker(GoogleMap map, String linea, String ramal, LatLng coord){
+        Marker marker;
+
+        marker = map.addMarker(new MarkerOptions()
+                .position(coord)
+                .title(linea)
+                .snippet(ramal)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+
+        if(marker != null) {
+            markers.add(marker);
+        }
+    }
+
     protected void draw_recorrido(GoogleMap map, JSONArray points, int color){
         ArrayList<LatLng> points_l = new ArrayList<>();
         for(int i = 0; i<points.length();i++) {
