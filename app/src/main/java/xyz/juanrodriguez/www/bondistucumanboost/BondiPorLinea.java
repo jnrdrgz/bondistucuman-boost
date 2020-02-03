@@ -76,28 +76,38 @@ public class BondiPorLinea extends MapaBondis{
         AsyncHttpClient client = new AsyncHttpClient();
 
         final String url = URL + "r/" + l;
-
+        Log.d("REQUESTREC", "OK");
         client.get(url, new JsonHttpResponseHandler(){
             @Override
-            public void onSuccess(int statusCode, Header[] headers, final JSONObject response){
+            public void onSuccess(int statusCode, Header[] headers, final JSONArray response){
                 int current_color = 0;
+                //log.d("REQUESTREC", "OK");
                 try{
-                    for ( Iterator<String> it = response.keys();  it.hasNext();){
-                        Log.d("RRRRRRR", url);
+                    Log.e("REQUESTREC", "OK JSON");
+                    /*for ( Iterator<String> it = response.keys();  it.hasNext();){
                         String r = it.next();
                         JSONArray pts = response.getJSONObject(r).getJSONArray("puntos");
                         draw_recorrido(map, pts, colors[current_color]);
                         current_color++;
+                    }*/
+                    for(int i = 0; i < response.length(); i++){
+                        JSONObject r = response.getJSONObject(i);
+                        JSONArray recorrido_ptos = r.getJSONArray("puntos");
+
+                        draw_recorrido(map, recorrido_ptos, colors[current_color]);
+                        current_color++;
                     }
 
+
+
                 } catch (Exception e){
-                    Log.e("REQUESTPOS", e.toString());
+                    Log.e("REQUESTREC", e.toString());
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response){
-                FailureMessageBuilder.build("RequestRec", statusCode, response, e.toString());
+                FailureMessageBuilder.build("REQUESTREC", statusCode, response, e.toString());
             }
         });
     }
