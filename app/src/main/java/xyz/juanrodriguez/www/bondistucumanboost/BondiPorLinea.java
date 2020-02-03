@@ -75,7 +75,7 @@ public class BondiPorLinea extends MapaBondis{
     private void requestRecorrido(final GoogleMap map, int l){
         AsyncHttpClient client = new AsyncHttpClient();
 
-        String url = URL + "r/" + l;
+        final String url = URL + "r/" + l;
 
         client.get(url, new JsonHttpResponseHandler(){
             @Override
@@ -83,6 +83,7 @@ public class BondiPorLinea extends MapaBondis{
                 int current_color = 0;
                 try{
                     for ( Iterator<String> it = response.keys();  it.hasNext();){
+                        Log.d("RRRRRRR", url);
                         String r = it.next();
                         JSONArray pts = response.getJSONObject(r).getJSONArray("puntos");
                         draw_recorrido(map, pts, colors[current_color]);
