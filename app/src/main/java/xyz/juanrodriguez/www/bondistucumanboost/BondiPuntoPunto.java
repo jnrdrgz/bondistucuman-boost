@@ -40,6 +40,11 @@ public class BondiPuntoPunto extends MapaBondis {
     @Override
     protected void destroy(ViewGroup main) {
         map.setOnMapLongClickListener(null);
+        delete_lines();
+        delete_markers();
+        current = false;
+
+        main.removeAllViews();
     }
 
     public void addView(LayoutInflater inflater, ViewGroup main){

@@ -84,12 +84,7 @@ public class BondiPorLinea extends MapaBondis{
                 //log.d("REQUESTREC", "OK");
                 try{
                     Log.e("REQUESTREC", "OK JSON");
-                    /*for ( Iterator<String> it = response.keys();  it.hasNext();){
-                        String r = it.next();
-                        JSONArray pts = response.getJSONObject(r).getJSONArray("puntos");
-                        draw_recorrido(map, pts, colors[current_color]);
-                        current_color++;
-                    }*/
+
                     for(int i = 0; i < response.length(); i++){
                         JSONObject r = response.getJSONObject(i);
                         JSONArray recorrido_ptos = r.getJSONArray("puntos");
@@ -97,9 +92,6 @@ public class BondiPorLinea extends MapaBondis{
                         draw_recorrido(map, recorrido_ptos, colors[current_color]);
                         current_color++;
                     }
-
-
-
                 } catch (Exception e){
                     Log.e("REQUESTREC", e.toString());
                 }
