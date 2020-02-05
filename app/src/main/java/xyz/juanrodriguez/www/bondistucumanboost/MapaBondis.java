@@ -1,6 +1,7 @@
 package xyz.juanrodriguez.www.bondistucumanboost;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -56,7 +57,7 @@ public abstract class MapaBondis {
             try {
                 points_l.add(new LatLng(points.getJSONArray(i).getDouble(0), points.getJSONArray(i).getDouble(1)));
             } catch (Exception e){
-
+                Log.e("Error:", e.toString());
             }
         }
 
