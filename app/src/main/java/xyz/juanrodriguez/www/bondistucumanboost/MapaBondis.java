@@ -44,7 +44,7 @@ public abstract class MapaBondis {
                 .position(coord)
                 .title(linea)
                 .snippet(ramal)
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_bus)));
 
         if(marker != null) {
             markers.add(marker);
