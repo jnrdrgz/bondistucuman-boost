@@ -42,6 +42,7 @@ public class BondiPuntoPunto extends MapaBondis {
         map.setOnMapLongClickListener(null);
         delete_lines();
         delete_markers();
+        map.clear();
         current = false;
 
         main.removeAllViews();
@@ -97,7 +98,7 @@ public class BondiPuntoPunto extends MapaBondis {
             @Override
             public void onClick(View v) {
                 AsyncHttpClient client = new AsyncHttpClient();
-                client.setTimeout(20000);
+                client.setTimeout(50000);
 
                 String url_l = URL + "bondis/cual_tomo/";
                 final String url = url_l + String.format("?plat=%s&plng=%s&dlat=%s&dlng=%s", Double.toString(ll_partida.latitude), Double.toString(ll_partida.longitude), Double.toString(ll_destino.latitude), Double.toString(ll_destino.longitude));

@@ -44,6 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PrimaryDrawerItem b1 = new PrimaryDrawerItem().withIdentifier(1).withName("Por Linea");
         PrimaryDrawerItem b2 = new PrimaryDrawerItem().withIdentifier(2).withName("Personalizado");
         PrimaryDrawerItem b3 = new PrimaryDrawerItem().withIdentifier(3).withName("Punto a Punto");
+        PrimaryDrawerItem b4 = new PrimaryDrawerItem().withIdentifier(4).withName("+Agregar Personalizado");
         drawerBuilder = new DrawerBuilder()
             .withActivity(this)
             //.withToolbar()
@@ -51,7 +52,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     b1,
                     //new DividerDrawerItem(),
                     b2,
-                    b3
+                    b3,
+                    b4
             )
         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override

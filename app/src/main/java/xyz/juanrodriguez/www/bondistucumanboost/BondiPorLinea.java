@@ -169,6 +169,7 @@ public class BondiPorLinea extends MapaBondis{
     protected void destroy(ViewGroup main) {
         delete_lines();
         delete_markers();
+        map.clear();
         current = false;
 
         main.removeAllViews();
